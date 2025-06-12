@@ -95,13 +95,12 @@ class ListaDeReproduccion{
 
     //Devuelve la longitud de la lista
     getSize(){
-        return this.lista.lenght;
+        return this.lista.length;
     }
     
     shuffle(){
-        for(let i=0; i < this.lista.lenght; i++)
-        {
-            let j = Math.floor(Math.random() * i+1);
+        for(let i = this.lista.length - 1; i > 0; i--) { 
+            let j = Math.floor(Math.random() * (i + 1));
             intercambiar(this.lista, i, j);
         }
     }
@@ -148,6 +147,47 @@ canciones = [
 ]
 
 //Probar codigo aqui
+
+//Métodos de la Lista de Reproducción
+
 let lista = new ListaDeReproduccion(canciones);
+let nuevaCancion = new Cancion("Star Lost", 21, "K-pop", "Stray Kids", "https://www.youtube.com/watch?v=NZtRj2G0CoI")
+
+let otraLista = new ListaDeReproduccion([
+    new Cancion("Smells Like Teen Spirit", 22, "Rock", "Nirvana", "https://www.youtube.com/watch?v=hTWKbfoikeg"),
+    new Cancion("Rolling in the Deep", 23, "Pop", "Adele", "https://www.youtube.com/watch?v=rYEDA3JcQqw"),
+    new Cancion("Lose Yourself", 24, "Hip Hop", "Eminem", "https://www.youtube.com/watch?v=_Yhyp-_hX2s"),
+    new Cancion("Titanium", 25, "Electrónica", "David Guetta ft. Sia", "https://www.youtube.com/watch?v=JRfuAukYTKg"),
+    new Cancion("Blinding Lights", 26, "R&B", "The Weeknd", "https://www.youtube.com/watch?v=4NRXx6U8ABQ"),
+]);
+
+//Prueba Shuffle
 lista.shuffle();
 console.log(lista.get());
+
+//Prueba get
+console.log("Primera canción:", lista.get()[0].getNombre());
+
+//Prueba getSize
+console.log("Tamaño de la lista de reproducción:", lista.getSize());
+
+//Prueba push
+lista.push(nuevaCancion);
+console.log("Canción agregada. Tamaño de la lista de reproducción:", lista.getSize());
+
+//Prueba pop
+lista.pop(2)
+console.log("Canción eliminada. Tamaño de la lista de reproducción:", lista.getSize());
+
+//Prueba fusionar
+let fusionada = lista.fusionar(otraLista);
+console.log("Playlists fusionadas. Tamaño de la lista de reproducción:", fusionada.length);
+
+
+// Métodos de las canciones 
+let cancion = lista.get()[0];
+console.log("¿Se está reproduciendo la canción?", cancion.estaReproduciendo());
+cancion.play();
+console.log("¿Se está reproduciendo después de play?", cancion.estaReproduciendo());
+cancion.stop();
+console.log("¿Se está reproduciendo después de stop?", cancion.estaReproduciendo());
